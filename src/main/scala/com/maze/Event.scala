@@ -9,13 +9,10 @@ case class FollowEvent(seqNo: Int, from: Int, to: Int) extends Event(seqNo) {
   def toId = to
 }
 
-
 case class UnFollowEvent(seqNo: Int, from: Int, to: Int) extends Event(seqNo) {
   def fromId = from
   def toId = to
 }
-
-case class BroadcastEvent(seqNo: Int) extends Event(seqNo) {}
 
 case class PrivateMessageEvent(seqNo: Int, from: Int, to: Int) extends Event(seqNo) {
   def fromId = from
@@ -27,12 +24,18 @@ case class StatusUpdateEvent(seqNo: Int, from: Int, to: Int) extends Event(seqNo
   def toId = to
 }
 
+case class BroadcastEvent(seqNo: Int) extends Event(seqNo) {}
+
 object EventDeserializer {
   def deserialize(raw: String): Event = {
-    return new FollowEvent(1,2,3)
+    val parts = raw.split("\\|")
+    return deserialize(parts)
   }
 
-  def deserialized(parts: Array[String]): Event = {
-
+  def deserialize(parts: Array[String]): Event = {
+    val event = parts(0) match {
+      case "F" => FollowEvent(parts(1).toInt, parts(2).toInt, parts(3).toInt)
+    }
+    return event
   }
 }

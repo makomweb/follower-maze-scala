@@ -1,11 +1,18 @@
 package com.maze
 
-import java.io.PrintWriter
+import java.io.{OutputStreamWriter, PrintWriter}
+import java.net.Socket
 
 import scala.collection.immutable.HashMap
 
-object UserRepository {
+class UserRepository {
   var users: HashMap[Int, User] = HashMap[Int, User]()
+
+  def add(id: Int, socket: Socket): Unit = {
+    val stream = socket.getOutputStream();
+    val writer = new OutputStreamWriter(stream);
+    add(id, new PrintWriter(writer))
+  }
 
   def add(id: Int, writer: PrintWriter): User = {
     val user = new User(id, writer)

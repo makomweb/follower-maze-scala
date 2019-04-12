@@ -17,5 +17,5 @@ class EventQueue {
     return queue.dequeue()
   }
 
-  def eventOrder(e: Event) = e.sequenceNumber
+  def eventOrder(e: Event) = -e.sequenceNumber
 }

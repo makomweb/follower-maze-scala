@@ -31,4 +31,19 @@ class UserRepository {
       case None => addDummy(id)
     }
   }
+
+  def follow(fromId: Int, toId: Int, event: FollowEvent): Unit = {
+    val to = get(toId)
+    to.addFollower(fromId)
+    to.consume(event)
+  }
+
+  def unfollow(fromId: Int, toId: Int): Unit = {
+    val to = get(toId)
+    to.removeFollower(fromId)
+  }
+
+  def allUsers(): Iterable[User] = {
+    users.values
+  }
 }

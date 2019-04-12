@@ -9,6 +9,8 @@ class IncomingEventSocketServer(serverSocket: ServerSocket, threadPool: Executor
     while (true) {
       try {
         val socket = serverSocket.accept()
+        println("Incoming events accepted.")
+
         val processor: IncomingEventProcessor = new IncomingEventProcessor(socket, eventQueue)
         threadPool.submit(processor)
       } catch {

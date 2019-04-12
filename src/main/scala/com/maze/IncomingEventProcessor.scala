@@ -11,6 +11,9 @@ class IncomingEventProcessor(socket: Socket, eventQueue: EventQueue) extends Run
       val bufferedReader = new BufferedReader(reader)
       while (true) {
         val line = bufferedReader.readLine()
+        print("Read event line: ")
+        println(line)
+
         if (line != null) {
           val event = EventDeserializer.deserialize(line)
           eventQueue.enqueue(event)

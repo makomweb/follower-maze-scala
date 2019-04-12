@@ -10,11 +10,11 @@ class EventQueue {
   }
 
   def nonEmpty(): Boolean= {
-    return queue.nonEmpty
+    queue.nonEmpty
   }
 
   def dequeue(): Event = {
-    return queue.dequeue()
+    queue.dequeue()
   }
 
   def eventOrder(e: Event) = -e.sequenceNumber

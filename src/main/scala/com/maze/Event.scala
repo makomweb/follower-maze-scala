@@ -28,17 +28,16 @@ case class BroadcastEvent(seqNo: Int) extends Event(seqNo) {}
 object EventDeserializer {
   def deserialize(raw: String): Event = {
     val parts = raw.split("\\|")
-    return deserialize(parts)
+    deserialize(parts)
   }
 
   def deserialize(parts: Array[String]): Event = {
-    val event = parts(0) match {
+    parts(0) match {
       case "F" => FollowEvent(parts(1).toInt, parts(2).toInt, parts(3).toInt)
       case "U" => UnFollowEvent(parts(1).toInt, parts(2).toInt, parts(3).toInt)
       case "P" => PrivateMessageEvent(parts(1).toInt, parts(2).toInt, parts(3).toInt)
       case "S" => StatusUpdateEvent(parts(1).toInt, parts(2).toInt)
       case "B" => BroadcastEvent(parts(1).toInt)
     }
-    return event
   }
 }

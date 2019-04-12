@@ -13,16 +13,18 @@ class UserClientProcessor(socket: Socket, userRepository: UserRepository) extend
         val line = bufferedReader.readLine()
         if (line != null) {
           userRepository.add(line.toInt, socket)
+          //print("accepted user ")
+          //println(line)
         }
       }
     } catch {
       case ex: IOException => {
-        println("Caught exception while processing accepted users!")
-        println(ex)
+        //println("Caught exception while processing accepted users!")
+        //println(ex)
       }
       case ex: RuntimeException => {
-        println("Could not add accepted user!")
-        println(ex)
+        //println("Could not add accepted user!")
+        //println(ex)
       }
     }
   }

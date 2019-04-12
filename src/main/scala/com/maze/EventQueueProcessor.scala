@@ -7,6 +7,9 @@ class EventQueueProcessor(userRepository: UserRepository, eventQueue: EventQueue
         val event = eventQueue.dequeue()
         try {
           event.raiseEvent(userRepository)
+          print("Raised event ")
+          println(event)
+
         } catch {
           case ex: RuntimeException => {
             println("Exception while raising event!")

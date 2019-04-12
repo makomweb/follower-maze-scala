@@ -14,6 +14,8 @@ class IncomingEventProcessor(socket: Socket, eventQueue: EventQueue) extends Run
         if (line != null) {
           val event = EventDeserializer.deserialize(line)
           eventQueue.enqueue(event)
+          print("enqueued event ")
+          println(event)
         }
       }
     } catch {

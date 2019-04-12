@@ -17,6 +17,7 @@ class User(val id: Int, writer: PrintWriter) {
 
   def consume(event: Event): Boolean = {
     writer.print(event)
+    writer.print("\r\n")
     writer.flush()
     !writer.checkError()
   }

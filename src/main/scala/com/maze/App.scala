@@ -17,5 +17,8 @@ object App {
 
     val incomingEventSocketServer = new IncomingEventSocketServer(incomingEventSocket, threadPool, eventQueue)
     threadPool.submit(incomingEventSocketServer)
+
+    val userClientSocketServer = new UserClientSocketServer(userClientSocket, threadPool, userRepository)
+    threadPool.submit(userClientSocketServer)
   }
 }

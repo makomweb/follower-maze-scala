@@ -1,9 +1,9 @@
 package com.maze
 
-import scala.collection.mutable.ListBuffer
+import scala.collection.mutable.PriorityQueue
 
 class EventQueue {
-  val queue: ListBuffer[Event] = ListBuffer.empty[Event]
+  val queue: PriorityQueue[Event] = PriorityQueue.empty[Event](Ordering.by(eventOrder))
 
   def enqueue(event: Event): Unit = {
     queue += event
@@ -14,8 +14,8 @@ class EventQueue {
   }
 
   def dequeue(): Event = {
-    val first = queue.take(1)
-    queue.remove(0)
-    return first.last
+    return queue.dequeue()
   }
+
+  def eventOrder(e: Event) = e.sequenceNumber
 }

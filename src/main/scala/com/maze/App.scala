@@ -16,9 +16,11 @@ object App {
     incomingEventSocket.setSoTimeout(1000)
 
     val incomingEventSocketServer = new IncomingEventSocketServer(incomingEventSocket, threadPool, eventQueue)
-    threadPool.submit(incomingEventSocketServer)
-
     val userClientSocketServer = new UserClientSocketServer(userClientSocket, threadPool, userRepository)
+    val eventQueueProcessor = new EventQueueProcessor(userRepository, eventQueue)
+
+    threadPool.submit(incomingEventSocketServer)
     threadPool.submit(userClientSocketServer)
+    threadPool.submit(eventQueueProcessor)
   }
 }

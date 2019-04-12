@@ -7,7 +7,7 @@ object App {
   def main(args: Array[String]): Unit = {
     val threadPool: ExecutorService = Executors.newCachedThreadPool()
     val eventQueue: EventQueue = new EventQueue()
-    val userRepository = UserRepository
+    val userRepository = new UserRepository
 
     val userClientSocket = new ServerSocket(9099)
     userClientSocket.setSoTimeout(1000)

@@ -14,4 +14,9 @@ class User(val id: Int, writer: PrintWriter) {
   def removeFollower(id: Int): Unit = {
     followers.remove(id)
   }
+
+  def consume(event: Event): Unit = {
+    writer.print(event)
+    writer.flush()
+  }
 }

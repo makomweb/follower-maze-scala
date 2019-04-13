@@ -2,18 +2,23 @@ package com.maze
 
 class EventQueueProcessor(userRepository: UserRepository, eventQueue: EventQueue) extends Runnable {
   override def run(): Unit = {
+    var sequenceNumber = 1
     while (true) {
       if (eventQueue.nonEmpty) {
-        val event = eventQueue.dequeue()
-        try {
-          event.raiseEvent(userRepository)
-          print("Raised event ")
-          println(event)
+        var event = eventQueue.peek()
+        if (event != null && event.sequenceNumber <= sequenceNumber) {
+          event = eventQueue.dequeue()
+          sequenceNumber = sequenceNumber + 1
+          try {
+            event.raiseEvent(userRepository)
+            print("Raised event ")
+            println(event)
 
-        } catch {
-          case ex: RuntimeException => {
-            println("Exception while raising event!")
-            println(ex)
+          } catch {
+            case ex: RuntimeException => {
+              println("Exception while raising event!")
+              println(ex)
+            }
           }
         }
       }

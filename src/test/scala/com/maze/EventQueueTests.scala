@@ -34,6 +34,11 @@ class EventQueueTests extends FunSuite {
     assert(queue.dequeue().sequenceNumber == 1)
     assert(queue.dequeue().sequenceNumber == 3)
     assert(queue.dequeue().sequenceNumber == 5)
+  }
 
+  test("peek should succeed") {
+    val queue = new EventQueue()
+    val head = queue.peek()
+    assert(head != null)
   }
 }

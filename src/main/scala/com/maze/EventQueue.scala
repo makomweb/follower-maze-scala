@@ -17,5 +17,9 @@ class EventQueue {
     queue.dequeue()
   }
 
+  def peek(): Event = {
+    queue.head
+  }
+
   def eventOrder(e: Event) = -e.sequenceNumber
 }

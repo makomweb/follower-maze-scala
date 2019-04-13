@@ -6,13 +6,11 @@ import java.net.Socket
 class IncomingEventProcessor(socket: Socket, eventQueue: EventQueue) extends Runnable {
   override def run(): Unit = {
     try {
-      val stream = socket.getInputStream()
-      val reader = new InputStreamReader(stream)
-      val bufferedReader = new BufferedReader(reader)
+      val reader = ReaderCreator.fromSocket(socket)
       while (true) {
-        val line = bufferedReader.readLine()
-        print("Read event line: ")
-        println(line)
+        val line = reader.readLine()
+        //print("Read event line: ")
+        //println(line)
 
         if (line != null) {
           val event = EventDeserializer.deserialize(line)
@@ -27,5 +25,13 @@ class IncomingEventProcessor(socket: Socket, eventQueue: EventQueue) extends Run
         println(ex)
       }
     }
+  }
+}
+
+object ReaderCreator {
+  def fromSocket(socket: Socket) : BufferedReader = {
+    val stream = socket.getInputStream()
+    val reader = new InputStreamReader(stream)
+    new BufferedReader(reader)
   }
 }

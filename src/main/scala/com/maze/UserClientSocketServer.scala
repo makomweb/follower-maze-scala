@@ -8,7 +8,7 @@ class UserClientSocketServer(serverSocket: ServerSocket, threadPool: ExecutorSer
   override def run(): Unit = {
     while (true) {
       try {
-        val socket = serverSocket.accept()
+        val socket = serverSocket.accept
         val processor: UserClientProcessor = new UserClientProcessor(socket, userRepository)
         threadPool.submit(processor)
       } catch {

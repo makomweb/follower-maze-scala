@@ -8,7 +8,7 @@ class IncomingEventSocketServer(serverSocket: ServerSocket, threadPool: Executor
   override def run(): Unit = {
     while (true) {
       try {
-        val socket = serverSocket.accept()
+        val socket = serverSocket.accept
         println("Incoming events accepted.")
 
         val processor: IncomingEventProcessor = new IncomingEventProcessor(socket, eventQueue)

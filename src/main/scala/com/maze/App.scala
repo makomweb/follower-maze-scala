@@ -1,7 +1,7 @@
 package com.maze
 
 import java.net.ServerSocket
-import java.util.concurrent.{ExecutorService, Executors}
+import java.util.concurrent.{Executors}
 
 object App {
   def main(args: Array[String]): Unit = {

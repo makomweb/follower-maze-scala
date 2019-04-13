@@ -14,6 +14,6 @@ class UserTests extends FunSuite{
     val bytes = stream.toByteArray()
     val str = new String(bytes)
 
-    assert("44|F|22|11" == str)
+    assert("44|F|22|11\r\n" == str)
   }
 }

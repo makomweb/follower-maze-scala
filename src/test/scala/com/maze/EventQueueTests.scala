@@ -36,9 +36,18 @@ class EventQueueTests extends FunSuite {
     assert(queue.dequeue().sequenceNumber == 5)
   }
 
-  test("peek should succeed") {
+  test("peeking an empty queue should throw") {
+    intercept[NoSuchElementException] {
+      val queue = new EventQueue()
+      val head = queue.peek
+      assert(head == null)
+    }
+  }
+
+  test("peeking a non-empty queue should succeed") {
     val queue = new EventQueue()
-    val head = queue.peek()
+    queue.enqueue(FollowEvent(11, 22, 33))
+    val head = queue.peek
     assert(head != null)
   }
 }

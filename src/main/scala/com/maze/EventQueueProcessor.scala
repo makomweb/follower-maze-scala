@@ -6,19 +6,19 @@ class EventQueueProcessor(userRepository: UserRepository, eventQueue: EventQueue
     while (true) {
       try {
         if (eventQueue.nonEmpty) {
-          var event = eventQueue.peek
+          val event = eventQueue.peek
           if (event != null && event.sequenceNumber <= sequenceNumber) {
-            event = eventQueue.dequeue()
+            //event = eventQueue.dequeue()
             sequenceNumber = sequenceNumber + 1
-            event.raiseEvent(userRepository)
-            print("Raised event ")
-            println(event)
+            println(s"sequence number: $sequenceNumber")
+            //event.raiseEvent(userRepository)
+            //print("Raised event ")
+            //println(event)
           }
         }
       } catch {
         case ex: RuntimeException => {
-          println("Exception while raising event!")
-          println(ex)
+          println(s"Exception while raising event: $ex")
         }
       }
     }

@@ -15,8 +15,7 @@ class IncomingEventSocketServer(serverSocket: ServerSocket, threadPool: Executor
         threadPool.submit(processor)
       } catch {
         case ex: IOException => {
-          //println("Caught exception while accepting incoming events!")
-          //println(ex)
+          println(s"Caught exception while accepting incoming events: $ex")
         }
       }
     }

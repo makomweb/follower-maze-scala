@@ -8,21 +8,16 @@ class IncomingEventProcessor(socket: Socket, eventQueue: EventQueue) extends Run
     try {
       val reader = ReaderCreator.fromSocket(socket)
       while (true) {
-        val line = reader.readLine()
-        //print("Read event line: ")
-        //println(line)
-
+        val line = reader.readLine
         if (line != null) {
+          println(s"Received event : $line")
           val event = EventDeserializer.deserialize(line)
           eventQueue.enqueue(event)
-          print("enqueued event ")
-          println(event)
         }
       }
     } catch {
       case ex: IOException => {
-        println("Caught exception while processing incoming events!")
-        println(ex)
+        println(s"Caught exception while processing incoming events: $ex")
       }
     }
   }

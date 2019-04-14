@@ -1,30 +1,25 @@
 package com.maze
 
-import java.io.{BufferedReader, IOException, InputStreamReader}
+import java.io.{ IOException }
 import java.net.Socket
 
 class UserClientProcessor(socket: Socket, userRepository: UserRepository) extends Runnable {
   override def run(): Unit = {
     try {
-      val stream = socket.getInputStream()
-      val reader = new InputStreamReader(stream)
-      val bufferedReader = new BufferedReader(reader)
+      val reader = ReaderCreator.fromSocket(socket)
       while (true) {
-        val line = bufferedReader.readLine()
+        val line = reader.readLine()
         if (line != null) {
           userRepository.add(line.toInt, socket)
-          //print("accepted user ")
-          //println(line)
+          println(s"accepted user $line")
         }
       }
     } catch {
       case ex: IOException => {
-        //println("Caught exception while processing accepted users!")
-        //println(ex)
+        println(s"Caught exception while processing accepted users: $ex")
       }
       case ex: RuntimeException => {
-        //println("Could not add accepted user!")
-        //println(ex)
+        println(s"Could not add accepted user: $ex")
       }
     }
   }

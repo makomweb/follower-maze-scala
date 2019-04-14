@@ -13,8 +13,7 @@ class UserClientSocketServer(serverSocket: ServerSocket, threadPool: ExecutorSer
         threadPool.submit(processor)
       } catch {
         case ex: IOException => {
-          //println("Caught exception while accepting user connections!")
-          //println(ex)
+          println(s"Caught exception while accepting user connections: $ex")
         }
       }
     }

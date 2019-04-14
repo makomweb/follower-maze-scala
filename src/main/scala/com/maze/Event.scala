@@ -46,8 +46,7 @@ case class StatusUpdateEvent(seqNo: Long, from: Int) extends Event(seqNo) {
       from.notifyFollowers(this, userRepository)
     } catch {
       case ex: RuntimeException => {
-        println("notifyFollowers() has thrown!")
-        println(ex)
+        println(s"notifyFollowers() has thrown: $ex")
       }
     }
   }

@@ -17,8 +17,7 @@ class User(val id: Int, out: PrintStream) {
 
   def consume(event: Event): Unit = {
     out.println(event)
-    print("consumed event ")
-    println(event)
+    println(s"consumed event $event")
   }
 
   def notifyFollowers(event: StatusUpdateEvent, userRepository: UserRepository): Unit = {

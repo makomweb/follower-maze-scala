@@ -44,7 +44,7 @@ class UserRepository {
   }
 
   def get(id: Int): User = {
-    if (!users.contains(id)){
+    if (!users.containsKey(id)){
       addDummy(id)
     }
     users.get(id)

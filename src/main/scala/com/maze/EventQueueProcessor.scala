@@ -4,12 +4,11 @@ class EventQueueProcessor(userRepository: UserRepository, eventQueue: EventQueue
   override def run(): Unit = {
     var sequenceNumber = 1
     while (true) {
-      Thread.sleep(1000L)
-      print(".")
+      //Thread.sleep(1000L)
+      //print(".")
       try {
         if (eventQueue.nonEmpty) {
           val event = eventQueue.dequeue
-          println(s"sequence number: $sequenceNumber")
           sequenceNumber = sequenceNumber + 1
           /*
           val event = eventQueue.peek
@@ -18,10 +17,10 @@ class EventQueueProcessor(userRepository: UserRepository, eventQueue: EventQueue
             println(s"sequence number: $sequenceNumber")
             sequenceNumber = sequenceNumber + 1
             //event.raiseEvent(userRepository)
-            //print("Raised event ")
-            //println(event)
           }
           */
+          event.raiseEvent(userRepository)
+          //println (s"Raised event: $event")
         }
       } catch {
         case ex: Throwable => {

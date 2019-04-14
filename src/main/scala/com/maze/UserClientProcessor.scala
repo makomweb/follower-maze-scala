@@ -10,7 +10,7 @@ class UserClientProcessor(socket: Socket, userRepository: UserRepository) extend
       while (true) {
         val line = reader.readLine()
         if (line != null) {
-          userRepository.add(line.toInt, socket)
+          userRepository.add(line.toInt, socket, false)
           println(s"accepted user $line")
         }
       }

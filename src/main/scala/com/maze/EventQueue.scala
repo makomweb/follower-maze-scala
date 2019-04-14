@@ -4,8 +4,8 @@ import java.util.Comparator
 import java.util.concurrent.PriorityBlockingQueue
 
 object EventOrderComparator extends Comparator[Event] {
-  override def compare(o1: Event, o2: Event): Int = {
-    Integer.compare(o1.sequenceNumber, o2.sequenceNumber)
+  override def compare(one: Event, other: Event): Int = {
+    Integer.compare(one.sequenceNumber, other.sequenceNumber)
   }
 }
 

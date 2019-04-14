@@ -1,24 +1,31 @@
 package com.maze
 
-import scala.collection.mutable.PriorityQueue
+import java.util.Comparator
+import java.util.concurrent.PriorityBlockingQueue
+
+object EventOrderComparator extends Comparator[Event] {
+  override def compare(o1: Event, o2: Event): Int = {
+    Integer.compare(o1.sequenceNumber, o2.sequenceNumber)
+  }
+}
 
 class EventQueue {
-  val queue: PriorityQueue[Event] = PriorityQueue.empty[Event](Ordering.by(eventOrder))
+  val queue: PriorityBlockingQueue[Event] = new PriorityBlockingQueue[Event](64, EventOrderComparator)
 
   def enqueue(event: Event): Unit = {
-    queue += event
+    queue.put(event)
   }
 
   def nonEmpty(): Boolean= {
-    queue.nonEmpty
+    queue.peek != null
   }
 
   def dequeue(): Event = {
-    queue.dequeue()
+    queue.take
   }
 
   def peek(): Event = {
-    queue.head
+    queue.peek
   }
 
   def eventOrder(e: Event) = -e.sequenceNumber

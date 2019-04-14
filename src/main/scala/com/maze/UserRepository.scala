@@ -2,8 +2,8 @@ package com.maze
 
 import java.io.{OutputStream, PrintStream}
 import java.net.Socket
-
-import scala.collection.immutable.HashMap
+import java.util.concurrent.ConcurrentHashMap
+import scala.collection.JavaConverters._
 
 object PrintStreamCreator {
   def fromSocket(socket: Socket) : PrintStream = {
@@ -21,7 +21,7 @@ object PrintStreamCreator {
 }
 
 class UserRepository {
-  var users: HashMap[Int, User] = HashMap[Int, User]()
+  var users: ConcurrentHashMap[Int, User] = new ConcurrentHashMap[Int, User]()
 
   def add(id: Int, socket: Socket): Unit = {
     val stream = PrintStreamCreator.fromSocket(socket)
@@ -30,7 +30,7 @@ class UserRepository {
 
   def add(id: Int, stream: PrintStream): User = {
     val user = new User(id, stream)
-    users += (id -> user)
+    users.put(id, user)
     user
   }
 
@@ -40,10 +40,10 @@ class UserRepository {
   }
 
   def get(id: Int): User = {
-    users.get(id) match {
-      case Some(user) => user
-      case None => addDummy(id)
+    if (!users.contains(id)){
+      addDummy(id)
     }
+    users.get(id)
   }
 
   def follow(fromId: Int, toId: Int, event: FollowEvent): Unit = {
@@ -59,5 +59,5 @@ class UserRepository {
 
   def allUsers(): Iterable[User] = {
     users.values
-  }
+  }.asScala
 }

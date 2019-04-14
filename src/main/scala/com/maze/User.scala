@@ -2,10 +2,8 @@ package com.maze
 
 import java.io.PrintStream
 
-import scala.collection.mutable.HashSet
-
 class User(val id: Int, out: PrintStream) {
-  val followerIds = HashSet[Int]()
+  val followerIds = createSet[Int]
 
   def addFollower(id: Int): Unit = {
     followerIds.add(id)
@@ -26,4 +24,11 @@ class User(val id: Int, out: PrintStream) {
       follower.consume(event)
     })
   }
+
+  def createSet[T]() = {
+    import scala.collection.JavaConverters._
+    java.util.Collections.newSetFromMap(
+      new java.util.concurrent.ConcurrentHashMap[T, java.lang.Boolean]).asScala
+  }
 }
+

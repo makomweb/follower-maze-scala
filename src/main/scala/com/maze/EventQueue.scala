@@ -16,10 +16,6 @@ class EventQueue {
     queue.put(event)
   }
 
-  def nonEmpty(): Boolean= {
-    queue.peek != null
-  }
-
   def dequeue(): Event = {
     queue.take
   }
@@ -27,6 +23,4 @@ class EventQueue {
   def peek(): Event = {
     queue.peek
   }
-
-  def eventOrder(e: Event) = -e.sequenceNumber
 }

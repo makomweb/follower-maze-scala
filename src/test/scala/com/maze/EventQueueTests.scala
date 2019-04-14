@@ -5,14 +5,14 @@ import org.scalatest.FunSuite
 class EventQueueTests extends FunSuite {
   test("evaluate that queue is empty") {
     val queue = new EventQueue()
-    assert(!queue.nonEmpty())
+    assert(queue.peek == null)
   }
 
   test("evaluate that queue is not empty") {
     val event = FollowEvent(22, 33, 44)
     val queue = new EventQueue()
     queue.enqueue(event)
-    assert(queue.nonEmpty())
+    assert(queue.peek.sequenceNumber == 22)
   }
 
   test ("dequeue event should make the queue empty") {
@@ -22,7 +22,7 @@ class EventQueueTests extends FunSuite {
 
     val taken = queue.dequeue()
     assert(taken.sequenceNumber == event.sequenceNumber)
-    assert(!queue.nonEmpty())
+    assert(queue.peek == null)
   }
 
   test("de-queueing events should follow sequence order") {

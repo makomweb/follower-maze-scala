@@ -43,6 +43,7 @@ class EventQueueProcessorTests extends FunSuite {
     val bytes = byteStream.toByteArray
     val str = new String(bytes)
 
-    assert("44|F|22|11\r\n" == str)
+    assert("1|F|1|2\n" +
+      "2|F|2|3\n3|F|2|1\n4|B\n4|B\n4|B\n5|B\n5|B\n5|B\n6|B\n6|B\n6|B\n7|S|1\n8|S|2\n9|S|3\n10|P|1|2\n11|P|2|3\n12|P|2|1\n" == str)
   }
 }

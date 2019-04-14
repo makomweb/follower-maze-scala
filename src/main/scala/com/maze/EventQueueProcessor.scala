@@ -10,20 +10,18 @@ class EventQueueProcessor(userRepository: UserRepository, eventQueue: EventQueue
   }
 
   def processQueue(): Unit = {
-    while (eventQueue.nonEmpty) {
+    while (eventQueue.peek != null) {
       process
     }
   }
 
   def process = {
     try {
-      if (eventQueue.nonEmpty) {
-        var event = eventQueue.peek
-        if (event != null && event.sequenceNumber <= sequenceNumber) {
-          event = eventQueue.dequeue
-          sequenceNumber = sequenceNumber + 1
-          event.raiseEvent(userRepository)
-        }
+      var event = eventQueue.peek
+      if (event != null && event.sequenceNumber <= sequenceNumber) {
+        event = eventQueue.dequeue
+        sequenceNumber = sequenceNumber + 1
+        event.raiseEvent(userRepository)
       }
     } catch {
       case ex: Throwable => {

@@ -15,8 +15,7 @@ class User(val id: Int, out: PrintWriter, dummy: Boolean) {
 
   def consume(event: Event): Boolean = {
     if (!dummy) {
-      out.print(s"$event\r\n")
-      out.flush()
+      out.println(event)
       !out.checkError
     }
 

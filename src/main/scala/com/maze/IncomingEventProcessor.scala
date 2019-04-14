@@ -10,7 +10,7 @@ class IncomingEventProcessor(socket: Socket, eventQueue: EventQueue) extends Run
       while (true) {
         val line = reader.readLine
         if (line != null) {
-          println(s"Received event : $line")
+          //println(s"Received event : $line")
           val event = EventDeserializer.deserialize(line)
           eventQueue.enqueue(event)
         }

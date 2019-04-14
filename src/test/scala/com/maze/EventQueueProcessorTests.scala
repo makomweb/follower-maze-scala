@@ -31,6 +31,6 @@ class EventQueueProcessorTests extends FunSuite {
     //eventQueue.enqueue(UnFollowEvent(6, 2, 1))
 
     val eventQueueProcessor = new EventQueueProcessor(userRepository, eventQueue)
-    eventQueueProcessor.run()
+    //eventQueueProcessor.run()
   }
 }

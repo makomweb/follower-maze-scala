@@ -10,6 +10,10 @@ class EventQueueProcessorTests extends FunSuite {
     userRepository.addDummy(1)
     userRepository.addDummy(2)
 
+    eventQueue.enqueue(PrivateMessageEvent(10, 1, 2))
+    eventQueue.enqueue(PrivateMessageEvent(11, 2, 3))
+    eventQueue.enqueue(PrivateMessageEvent(12, 2, 1))
+
     eventQueue.enqueue(FollowEvent(1, 1, 2))
     eventQueue.enqueue(FollowEvent(2, 2, 3))
     eventQueue.enqueue(FollowEvent(3, 2, 1))
@@ -21,10 +25,6 @@ class EventQueueProcessorTests extends FunSuite {
     eventQueue.enqueue(StatusUpdateEvent(7, 1))
     eventQueue.enqueue(StatusUpdateEvent(8, 2))
     eventQueue.enqueue(StatusUpdateEvent(9, 3))
-
-    eventQueue.enqueue(PrivateMessageEvent(10, 1, 2))
-    eventQueue.enqueue(PrivateMessageEvent(11, 2, 3))
-    eventQueue.enqueue(PrivateMessageEvent(12, 2, 1))
 
     //eventQueue.enqueue(UnFollowEvent(4, 1, 2))
     //eventQueue.enqueue(UnFollowEvent(5, 2, 3))

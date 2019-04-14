@@ -1,6 +1,5 @@
 package com.maze
 
-import java.io.IOException
 import java.net.ServerSocket
 import java.util.concurrent.ExecutorService
 
@@ -12,8 +11,8 @@ class UserClientSocketServer(serverSocket: ServerSocket, threadPool: ExecutorSer
         val processor: UserClientProcessor = new UserClientProcessor(socket, userRepository)
         threadPool.submit(processor)
       } catch {
-        case ex: IOException => {
-          println(s"Caught exception while accepting user connections: $ex")
+        case ex: Throwable => {
+          Logger.logAccpetingUserException(ex)
         }
       }
     }

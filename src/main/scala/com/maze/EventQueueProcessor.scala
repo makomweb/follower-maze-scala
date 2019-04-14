@@ -1,31 +1,33 @@
 package com.maze
 
 class EventQueueProcessor(userRepository: UserRepository, eventQueue: EventQueue) extends Runnable {
+  var sequenceNumber: Int = 1
+
   override def run(): Unit = {
-    var sequenceNumber = 1
     while (true) {
-      //Thread.sleep(10L)
-      //print(".")
-      try {
-        if (eventQueue.nonEmpty) {
-          /*
-          val event = eventQueue.dequeue
+      process
+    }
+  }
+
+  def processQueue(): Unit = {
+    while (eventQueue.nonEmpty) {
+      process
+    }
+  }
+
+  def process = {
+    try {
+      if (eventQueue.nonEmpty) {
+        var event = eventQueue.peek
+        if (event != null && event.sequenceNumber <= sequenceNumber) {
+          event = eventQueue.dequeue
           sequenceNumber = sequenceNumber + 1
-          */
-          var event = eventQueue.peek
-          if (event != null && event.sequenceNumber <= sequenceNumber) {
-            event = eventQueue.dequeue
-            //println(s"sequence number: $sequenceNumber")
-            sequenceNumber = sequenceNumber + 1
-            event.raiseEvent(userRepository)
-          }
-          //event.raiseEvent(userRepository)
-          //println (s"Raised event: $event")
+          event.raiseEvent(userRepository)
         }
-      } catch {
-        case ex: Throwable => {
-          println(s"Exception while raising event: $ex")
-        }
+      }
+    } catch {
+      case ex: Throwable => {
+        println(s"Exception while raising event: $ex")
       }
     }
   }

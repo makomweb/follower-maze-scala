@@ -1,14 +1,21 @@
 package com.maze
 
+import java.io.ByteArrayOutputStream
+
 import org.scalatest.FunSuite
 
 class EventQueueProcessorTests extends FunSuite {
   test("test event queue processor") {
+    val byteStream = new ByteArrayOutputStream
+    val stream = PrintStreamCreator.fromStream(byteStream)
+
     val userRepository = new UserRepository
     val eventQueue = new EventQueue
 
-    userRepository.addDummy(1)
-    userRepository.addDummy(2)
+    userRepository.add(1, stream, false)
+    userRepository.add(2, stream, false)
+    userRepository.add(3, stream, false)
+
 
     eventQueue.enqueue(PrivateMessageEvent(10, 1, 2))
     eventQueue.enqueue(PrivateMessageEvent(11, 2, 3))
@@ -31,6 +38,11 @@ class EventQueueProcessorTests extends FunSuite {
     //eventQueue.enqueue(UnFollowEvent(6, 2, 1))
 
     val eventQueueProcessor = new EventQueueProcessor(userRepository, eventQueue)
-    //eventQueueProcessor.run()
+    eventQueueProcessor.processQueue
+
+    val bytes = byteStream.toByteArray
+    val str = new String(bytes)
+
+    assert("44|F|22|11\r\n" == str)
   }
 }

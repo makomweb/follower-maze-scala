@@ -1,11 +1,11 @@
 package com.maze
 
-abstract class Event(seqNo: Long) {
+abstract class Event(seqNo: Int) {
   def sequenceNumber = seqNo
   def raiseEvent(userRepository: UserRepository)
 }
 
-case class FollowEvent(seqNo: Long, from: Int, to: Int) extends Event(seqNo) {
+case class FollowEvent(seqNo: Int, from: Int, to: Int) extends Event(seqNo) {
   def fromId = from
   def toId = to
   override def toString = s"$sequenceNumber|F|$fromId|$toId"
@@ -15,7 +15,7 @@ case class FollowEvent(seqNo: Long, from: Int, to: Int) extends Event(seqNo) {
   }
 }
 
-case class UnFollowEvent(seqNo: Long, from: Int, to: Int) extends Event(seqNo) {
+case class UnFollowEvent(seqNo: Int, from: Int, to: Int) extends Event(seqNo) {
   def fromId = from
   def toId = to
   override def toString = s"$sequenceNumber|U|$fromId|$toId"
@@ -25,7 +25,7 @@ case class UnFollowEvent(seqNo: Long, from: Int, to: Int) extends Event(seqNo) {
   }
 }
 
-case class PrivateMessageEvent(seqNo: Long, from: Int, to: Int) extends Event(seqNo) {
+case class PrivateMessageEvent(seqNo: Int, from: Int, to: Int) extends Event(seqNo) {
   def fromId = from
   def toId = to
   override def toString = s"$sequenceNumber|P|$fromId|$toId"
@@ -36,7 +36,7 @@ case class PrivateMessageEvent(seqNo: Long, from: Int, to: Int) extends Event(se
   }
 }
 
-case class StatusUpdateEvent(seqNo: Long, from: Int) extends Event(seqNo) {
+case class StatusUpdateEvent(seqNo: Int, from: Int) extends Event(seqNo) {
   def fromId = from
   override def toString = s"$sequenceNumber|S|$fromId"
 
@@ -52,7 +52,7 @@ case class StatusUpdateEvent(seqNo: Long, from: Int) extends Event(seqNo) {
   }
 }
 
-case class BroadcastEvent(seqNo: Long) extends Event(seqNo) {
+case class BroadcastEvent(seqNo: Int) extends Event(seqNo) {
   override def toString = s"$sequenceNumber|B"
 
   override def raiseEvent(userRepository: UserRepository): Unit = {
@@ -70,11 +70,11 @@ object EventDeserializer {
 
   def deserialize(parts: Array[String]): Event = {
     parts(1) match {
-      case "F" => FollowEvent(parts(0).toLong, parts(2).toInt, parts(3).toInt)
-      case "U" => UnFollowEvent(parts(0).toLong, parts(2).toInt, parts(3).toInt)
-      case "P" => PrivateMessageEvent(parts(0).toLong, parts(2).toInt, parts(3).toInt)
-      case "S" => StatusUpdateEvent(parts(0).toLong, parts(2).toInt)
-      case "B" => BroadcastEvent(parts(0).toLong)
+      case "F" => FollowEvent(parts(0).toInt, parts(2).toInt, parts(3).toInt)
+      case "U" => UnFollowEvent(parts(0).toInt, parts(2).toInt, parts(3).toInt)
+      case "P" => PrivateMessageEvent(parts(0).toInt, parts(2).toInt, parts(3).toInt)
+      case "S" => StatusUpdateEvent(parts(0).toInt, parts(2).toInt)
+      case "B" => BroadcastEvent(parts(0).toInt)
     }
   }
 }

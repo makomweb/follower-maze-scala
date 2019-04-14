@@ -1,34 +1,28 @@
 package com.maze
 
 abstract class Event(seqNo: Int) {
-  def sequenceNumber = seqNo
   def raiseEvent(userRepository: UserRepository)
+  def sequenceNumber = seqNo
 }
 
-case class FollowEvent(seqNo: Int, from: Int, to: Int) extends Event(seqNo) {
-  def fromId = from
-  def toId = to
-  override def toString = s"$sequenceNumber|F|$fromId|$toId"
+case class FollowEvent(seqNo: Int, fromId: Int, toId: Int) extends Event(seqNo) {
+  override def toString = s"$seqNo|F|$fromId|$toId"
 
   override def raiseEvent(userRepository: UserRepository): Unit = {
     userRepository.follow(fromId, toId, this)
   }
 }
 
-case class UnFollowEvent(seqNo: Int, from: Int, to: Int) extends Event(seqNo) {
-  def fromId = from
-  def toId = to
-  override def toString = s"$sequenceNumber|U|$fromId|$toId"
+case class UnFollowEvent(seqNo: Int, fromId: Int, toId: Int) extends Event(seqNo) {
+  override def toString = s"$seqNo|U|$fromId|$toId"
 
   override def raiseEvent(userRepository: UserRepository): Unit = {
     userRepository.unfollow(fromId, toId)
   }
 }
 
-case class PrivateMessageEvent(seqNo: Int, from: Int, to: Int) extends Event(seqNo) {
-  def fromId = from
-  def toId = to
-  override def toString = s"$sequenceNumber|P|$fromId|$toId"
+case class PrivateMessageEvent(seqNo: Int, fromId: Int, toId: Int) extends Event(seqNo) {
+  override def toString = s"$seqNo|P|$fromId|$toId"
 
   override def raiseEvent(userRepository: UserRepository): Unit = {
     val to = userRepository.get(toId)
@@ -36,9 +30,8 @@ case class PrivateMessageEvent(seqNo: Int, from: Int, to: Int) extends Event(seq
   }
 }
 
-case class StatusUpdateEvent(seqNo: Int, from: Int) extends Event(seqNo) {
-  def fromId = from
-  override def toString = s"$sequenceNumber|S|$fromId"
+case class StatusUpdateEvent(seqNo: Int, fromId: Int) extends Event(seqNo) {
+  override def toString = s"$seqNo|S|$fromId"
 
   override def raiseEvent(userRepository: UserRepository): Unit = {
     try {
@@ -53,7 +46,7 @@ case class StatusUpdateEvent(seqNo: Int, from: Int) extends Event(seqNo) {
 }
 
 case class BroadcastEvent(seqNo: Int) extends Event(seqNo) {
-  override def toString = s"$sequenceNumber|B"
+  override def toString = s"$seqNo|B"
 
   override def raiseEvent(userRepository: UserRepository): Unit = {
     userRepository.allUsers().foreach(user => {

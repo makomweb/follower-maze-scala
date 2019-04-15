@@ -5,6 +5,7 @@ import java.net.Socket
 
 class UserClientProcessor(socket: Socket, userRepository: UserRepository) extends Runnable {
   override def run(): Unit = {
+    println("Start accepting users.")
     try {
       val reader = ReaderCreator.fromSocket(socket)
       while (true) {

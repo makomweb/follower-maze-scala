@@ -5,6 +5,7 @@ import java.net.Socket
 
 class IncomingEventProcessor(socket: Socket, eventQueue: EventQueue) extends Runnable {
   override def run(): Unit = {
+    println("Start receiving events.")
     try {
       val reader = ReaderCreator.fromSocket(socket)
       while (true) {

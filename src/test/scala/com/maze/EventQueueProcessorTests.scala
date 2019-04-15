@@ -43,24 +43,24 @@ class EventQueueProcessorTests extends FunSuite {
     val bytes = byteStream.toByteArray
     val str = new String(bytes)
 
-    val expected = "1|F|1|2\r\n" +
-      "2|F|2|3\r\n" +
-      "3|F|2|1\r\n" +
-      "4|B\r\n" +
-      "4|B\r\n" +
-      "4|B\r\n" +
-      "5|B\r\n" +
-      "5|B\r\n" +
-      "5|B\r\n" +
-      "6|B\r\n" +
-      "6|B\r\n" +
-      "6|B\r\n" +
-      "7|S|1\r\n" +
-      "8|S|2\r\n" +
-      "9|S|3\r\n" +
-      "10|P|1|2\r\n" +
-      "11|P|2|3\r\n" +
-      "12|P|2|1\r\n"
+    val expected = "1|F|1|2\n" +
+      "2|F|2|3\n" +
+      "3|F|2|1\n" +
+      "4|B\n" +
+      "4|B\n" +
+      "4|B\n" +
+      "5|B\n" +
+      "5|B\n" +
+      "5|B\n" +
+      "6|B\n" +
+      "6|B\n" +
+      "6|B\n" +
+      "7|S|1\n" +
+      "8|S|2\n" +
+      "9|S|3\n" +
+      "10|P|1|2\n" +
+      "11|P|2|3\n" +
+      "12|P|2|1\n"
 
     //println(str)
 

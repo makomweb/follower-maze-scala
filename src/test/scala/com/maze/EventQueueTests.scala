@@ -34,6 +34,7 @@ class EventQueueTests extends FunSuite {
     assert(queue.dequeue().sequenceNumber == 1)
     assert(queue.dequeue().sequenceNumber == 3)
     assert(queue.dequeue().sequenceNumber == 5)
+    assert(queue.peek == null)
   }
 
   test("peeking an empty queue should throw") {

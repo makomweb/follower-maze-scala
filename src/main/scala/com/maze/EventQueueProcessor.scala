@@ -4,8 +4,6 @@ class EventQueueProcessor(userRepository: UserRepository, eventQueue: EventQueue
   var sequenceNumber: Int = 1
 
   override def run(): Unit = {
-    Thread.sleep(3000L)
-
     println("Start processing event queue.")
     while (true) {
       process

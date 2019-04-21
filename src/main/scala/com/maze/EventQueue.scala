@@ -13,14 +13,20 @@ class EventQueue {
   val queue: PriorityBlockingQueue[Event] = new PriorityBlockingQueue[Event](64, EventOrderComparator)
 
   def enqueue(event: Event): Unit = {
-    queue.put(event)
+    this.synchronized {
+      queue.put(event)
+    }
   }
 
   def dequeue(): Event = {
-    queue.take
+    this.synchronized {
+      queue.take
+    }
   }
 
   def peek(): Event = {
-    queue.peek
+    this.synchronized {
+      queue.peek
+    }
   }
 }

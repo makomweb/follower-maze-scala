@@ -1,11 +1,13 @@
 package com.maze
 
-class EventQueueProcessor(userRepository: UserRepository, eventQueue: EventQueue) extends Runnable {
+import java.util.concurrent.atomic.AtomicBoolean
+
+class EventQueueProcessor(userRepository: UserRepository, eventQueue: EventQueue, wasCancelled: AtomicBoolean) extends Runnable {
   var sequenceNumber: Int = 1
 
   override def run(): Unit = {
     println("Start processing event queue.")
-    while (true) {
+    while (!wasCancelled.get) {
       process
     }
   }

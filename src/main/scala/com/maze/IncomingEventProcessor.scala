@@ -2,13 +2,14 @@ package com.maze
 
 import java.io.{BufferedReader, IOException, InputStreamReader}
 import java.net.Socket
+import java.util.concurrent.atomic.AtomicBoolean
 
-class IncomingEventProcessor(socket: Socket, eventQueue: EventQueue) extends Runnable {
+class IncomingEventProcessor(socket: Socket, eventQueue: EventQueue, wasCancelled: AtomicBoolean) extends Runnable {
   override def run(): Unit = {
     println("Start receiving events.")
     try {
       val reader = ReaderCreator.fromSocket(socket)
-      while (true) {
+      while (!wasCancelled.get) {
         val line = reader.readLine
         if (line != null) {
           //println(s"Received event : $line")

@@ -1,14 +1,15 @@
 package com.maze
 
-import java.io.{ IOException }
+import java.io.IOException
 import java.net.Socket
+import java.util.concurrent.atomic.AtomicBoolean
 
-class UserClientProcessor(socket: Socket, userRepository: UserRepository) extends Runnable {
+class UserClientProcessor(socket: Socket, userRepository: UserRepository, wasCancelled: AtomicBoolean) extends Runnable {
   override def run(): Unit = {
     println("Start accepting users.")
     try {
       val reader = ReaderCreator.fromSocket(socket)
-      while (true) {
+      while (!wasCancelled.get) {
         val line = reader.readLine()
         if (line != null) {
           userRepository.add(line.toInt, socket, false)

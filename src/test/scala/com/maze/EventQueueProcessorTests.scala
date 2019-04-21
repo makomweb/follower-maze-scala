@@ -1,6 +1,7 @@
 package com.maze
 
 import java.io.ByteArrayOutputStream
+import java.util.concurrent.atomic.AtomicBoolean
 
 import org.scalatest.FunSuite
 
@@ -37,7 +38,7 @@ class EventQueueProcessorTests extends FunSuite {
     //eventQueue.enqueue(UnFollowEvent(5, 2, 3))
     //eventQueue.enqueue(UnFollowEvent(6, 2, 1))
 
-    val eventQueueProcessor = new EventQueueProcessor(userRepository, eventQueue)
+    val eventQueueProcessor = new EventQueueProcessor(userRepository, eventQueue, new AtomicBoolean(false))
     eventQueueProcessor.processQueue
 
     val bytes = byteStream.toByteArray

@@ -18,11 +18,13 @@ class EventQueueProcessor(userRepository: UserRepository, eventQueue: EventQueue
 
   def process = {
     try {
-      var event = eventQueue.peek
-      if (event != null && event.sequenceNumber <= sequenceNumber) {
-        event = eventQueue.dequeue
-        sequenceNumber = sequenceNumber + 1
-        event.raiseEvent(userRepository)
+      eventQueue.synchronized {
+        var event = eventQueue.peek
+        if (event != null && event.sequenceNumber <= sequenceNumber) {
+          event = eventQueue.dequeue
+          sequenceNumber = sequenceNumber + 1
+          event.raiseEvent(userRepository)
+        }
       }
     } catch {
       case ex: Throwable => {

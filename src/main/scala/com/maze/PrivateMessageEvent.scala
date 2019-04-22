@@ -6,5 +6,6 @@ case class PrivateMessageEvent(override val sequenceNumber: Int, fromId: Int, to
   override def raiseEvent(userRepository: UserRepository): Unit = {
     val to = userRepository.get(toId)
     to.consume(this)
+    Logger.logEventConsumed(to, this)
   }
 }

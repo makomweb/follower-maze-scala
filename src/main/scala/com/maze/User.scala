@@ -27,6 +27,7 @@ class User(val id: Int, out: PrintWriter, dummy: Boolean) {
     followerIds.foreach(followerId => {
       val follower = userRepository.get(followerId)
       val success = follower.consume(event)
+      Logger.logEventConsumed(follower, event)
       if (!success) {
         removeFollower(followerId)
       }

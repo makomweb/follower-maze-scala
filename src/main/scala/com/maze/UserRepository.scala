@@ -36,11 +36,13 @@ class UserRepository {
     val to = get(toId)
     to.addFollower(fromId)
     to.consume(event)
+    Logger.logEventConsumed(to, event)
   }
 
   def unfollow(fromId: Int, toId: Int): Unit = {
     val to = get(toId)
     to.removeFollower(fromId)
+    Logger.logEventConsumed(to, event)
   }
 
   def allUsers(): Iterable[User] = {

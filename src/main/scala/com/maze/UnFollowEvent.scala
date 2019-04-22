@@ -4,6 +4,6 @@ case class UnFollowEvent(override val sequenceNumber: Int, fromId: Int, toId: In
   override def toString = s"$sequenceNumber|U|$fromId|$toId"
 
   override def raiseEvent(userRepository: UserRepository): Unit = {
-    userRepository.unfollow(fromId, toId)
+    userRepository.unfollow(fromId, toId, this)
   }
 }

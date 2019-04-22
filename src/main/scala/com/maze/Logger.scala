@@ -1,6 +1,10 @@
 package com.maze
 
 object Logger {
+  def logEventConsumed(user: User, event: Event): Unit = {
+    println(s"$user.id has consumed event: $event")
+  }
+
   def logExceptionAcceptingUser(ex: Throwable): Unit = {
     println(s"Caught exception while accepting users: $ex")
   }

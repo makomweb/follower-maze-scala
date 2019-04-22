@@ -12,10 +12,7 @@ object App {
     val wasCancelled : AtomicBoolean = new AtomicBoolean(false)
     val mainThread = Thread.currentThread()
 
-    Runtime.getRuntime.addShutdownHook(new Thread() {override def run = {
-      wasCancelled.set(true)
-      mainThread.join()
-    }})
+    Runtime.getRuntime.addShutdownHook(new ShutdownHook(wasCancelled, mainThread))
 
     val userClientSocket = new ServerSocket(9099)
     userClientSocket.setSoTimeout(1000)

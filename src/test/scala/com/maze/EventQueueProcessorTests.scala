@@ -17,7 +17,6 @@ class EventQueueProcessorTests extends FunSuite {
     userRepository.add(2, stream)
     userRepository.add(3, stream)
 
-
     eventQueue.enqueue(PrivateMessageEvent(10, 1, 2))
     eventQueue.enqueue(PrivateMessageEvent(11, 2, 3))
     eventQueue.enqueue(PrivateMessageEvent(12, 2, 1))

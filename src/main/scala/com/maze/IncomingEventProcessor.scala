@@ -5,7 +5,6 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 class IncomingEventProcessor(socket: Socket, eventQueue: EventQueue, wasCancelled: AtomicBoolean) extends Runnable {
   override def run(): Unit = {
-    Logger.logIncomingEventProcessorStarted()
     try {
       val reader = ReaderCreator.fromSocket(socket)
       while (!wasCancelled.get) {

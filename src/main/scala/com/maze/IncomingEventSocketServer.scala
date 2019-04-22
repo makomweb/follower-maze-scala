@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 class IncomingEventSocketServer(serverSocket: ServerSocket, threadPool: ExecutorService, eventQueue: EventQueue, wasCancelled: AtomicBoolean) extends Runnable {
   override def run(): Unit = {
+    Logger.logIncomingEventProcessorStarted()
     while (!wasCancelled.get) {
       try {
         val socket = serverSocket.accept

@@ -1,6 +1,6 @@
 package com.maze
 
-import java.io.{BufferedReader, IOException, InputStreamReader}
+import java.io.IOException
 import java.net.Socket
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -22,13 +22,5 @@ class IncomingEventProcessor(socket: Socket, eventQueue: EventQueue, wasCancelle
         println(s"Caught exception while processing incoming events: $ex")
       }
     }
-  }
-}
-
-object ReaderCreator {
-  def fromSocket(socket: Socket) : BufferedReader = {
-    val stream = socket.getInputStream()
-    val reader = new InputStreamReader(stream)
-    new BufferedReader(reader)
   }
 }

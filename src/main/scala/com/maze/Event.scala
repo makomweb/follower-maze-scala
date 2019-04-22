@@ -1,6 +1,5 @@
 package com.maze
 
-abstract class Event(seqNo: Int) {
+abstract class Event(val sequenceNumber: Int) {
   def raiseEvent(userRepository: UserRepository)
-  def sequenceNumber = seqNo
 }

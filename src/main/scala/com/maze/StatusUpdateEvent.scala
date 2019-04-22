@@ -1,7 +1,7 @@
 package com.maze
 
-case class StatusUpdateEvent(seqNo: Int, fromId: Int) extends Event(seqNo) {
-  override def toString = s"$seqNo|S|$fromId"
+case class StatusUpdateEvent(override val sequenceNumber: Int, fromId: Int) extends Event(sequenceNumber) {
+  override def toString = s"$sequenceNumber|S|$fromId"
 
   override def raiseEvent(userRepository: UserRepository): Unit = {
     try {

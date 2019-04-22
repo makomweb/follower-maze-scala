@@ -13,6 +13,7 @@ object EventDeserializer {
       case "P" => PrivateMessageEvent(parts(0).toInt, parts(2).toInt, parts(3).toInt)
       case "S" => StatusUpdateEvent(parts(0).toInt, parts(2).toInt)
       case "B" => BroadcastEvent(parts(0).toInt)
+      case _ => Logger.logUnknownEventType(parts)
     }
   }
 }

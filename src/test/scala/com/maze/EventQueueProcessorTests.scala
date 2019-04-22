@@ -13,9 +13,9 @@ class EventQueueProcessorTests extends FunSuite {
     val userRepository = new UserRepository
     val eventQueue = new EventQueue
 
-    userRepository.add(1, stream, false)
-    userRepository.add(2, stream, false)
-    userRepository.add(3, stream, false)
+    userRepository.add(1, stream)
+    userRepository.add(2, stream)
+    userRepository.add(3, stream)
 
 
     eventQueue.enqueue(PrivateMessageEvent(10, 1, 2))

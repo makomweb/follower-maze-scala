@@ -11,7 +11,7 @@ class UserClientProcessor(socket: Socket, userRepository: UserRepository, wasCan
       while (!wasCancelled.get) {
         val line = reader.readLine()
         if (line != null) {
-          userRepository.add(line.toInt, socket, false)
+          userRepository.add(line.toInt, socket)
           Logger.logUserAccepted(line)
         }
       }

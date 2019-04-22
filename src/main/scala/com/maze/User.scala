@@ -2,7 +2,7 @@ package com.maze
 
 import java.io.PrintWriter
 
-class User(val id: Int, out: PrintWriter, dummy: Boolean) {
+class User(val id: Int, out: PrintWriter) {
   val followerIds = createSet[Int]
 
   def addFollower(id: Int): Unit = {
@@ -14,13 +14,8 @@ class User(val id: Int, out: PrintWriter, dummy: Boolean) {
   }
 
   def consume(event: Event): Boolean = {
-    if (!dummy) {
-      out.print(s"$event\n")
-      !out.checkError
-    }
-
-    println(s"Consumed event: $event")
-    true
+    out.print(s"$event\n")
+    !out.checkError
   }
 
   def notifyFollowers(event: StatusUpdateEvent, userRepository: UserRepository): Unit = {

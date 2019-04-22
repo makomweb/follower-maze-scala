@@ -8,7 +8,7 @@ class UserTests extends FunSuite{
   test("Writing event should succeed") {
     val byteStream = new ByteArrayOutputStream
     val stream = PrintWriterCreator.fromStream(byteStream)
-    val user = new User(1, stream, false)
+    val user = new User(1, stream)
     user.consume(FollowEvent(44, 22, 11))
 
     val bytes = byteStream.toByteArray

@@ -9,20 +9,20 @@ import scala.collection.JavaConverters._
 class UserRepository {
   var users: ConcurrentHashMap[Int, User] = new ConcurrentHashMap[Int, User]()
 
-  def add(id: Int, socket: Socket, dummy: Boolean): Unit = {
+  def add(id: Int, socket: Socket): Unit = {
     val stream = PrintWriterCreator.fromSocket(socket)
-    add(id, stream, dummy)
+    add(id, stream)
   }
 
-  def add(id: Int, stream: PrintWriter, dummy: Boolean): User = {
-    val user = new User(id, stream, dummy)
+  def add(id: Int, stream: PrintWriter): User = {
+    val user = new User(id, stream)
     users.put(id, user)
     user
   }
 
   def addDummy(id: Int): User = {
     val stream = PrintWriterCreator.nullWriter
-    add(id, stream, true)
+    add(id, stream)
   }
 
   def get(id: Int): User = {
@@ -39,7 +39,7 @@ class UserRepository {
     Logger.logEventConsumed(to, event)
   }
 
-  def unfollow(fromId: Int, toId: Int): Unit = {
+  def unfollow(fromId: Int, toId: Int, event: UnFollowEvent): Unit = {
     val to = get(toId)
     to.removeFollower(fromId)
     Logger.logEventConsumed(to, event)

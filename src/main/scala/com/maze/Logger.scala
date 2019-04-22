@@ -45,11 +45,11 @@ object Logger {
     println(s"Cannot parse unknown event type: $parts!")
   }
 
-  def logExceptionAccptingUsers(exception: Throwable): Unit = {
-    //println(s"Caught exception while accepting user connections: $exception")
+  def logExceptionAcceptingUsers(exception: Throwable): Unit = {
+    println(s"Caught exception while accepting user connections: $exception")
   }
 
   def logExceptionAcceptingIncomingEvents(exception: Throwable): Unit = {
-    //println(s"Caught exception while accepting incoming events: $exception")
+    println(s"Caught exception while accepting incoming events: $exception")
   }
 }

@@ -13,7 +13,7 @@ class UserClientSocketServer(serverSocket: ServerSocket, threadPool: ExecutorSer
         threadPool.submit(processor)
       } catch {
         case ex: Throwable => {
-          Logger.logAccpetingUserException(ex)
+          Logger.logExceptionAccptingUsers(ex)
         }
       }
     }

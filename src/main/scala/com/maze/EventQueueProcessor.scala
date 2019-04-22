@@ -6,7 +6,7 @@ class EventQueueProcessor(userRepository: UserRepository, eventQueue: EventQueue
   var sequenceNumber: Int = 1
 
   override def run(): Unit = {
-    println("Start processing event queue.")
+    Logger.logEventQueueProcessorStarted()
     while (!wasCancelled.get) {
       process
     }
@@ -26,11 +26,12 @@ class EventQueueProcessor(userRepository: UserRepository, eventQueue: EventQueue
           event = eventQueue.dequeue
           sequenceNumber = sequenceNumber + 1
           event.raiseEvent(userRepository)
+          Logger.logEventRaised(event)
         }
       }
     } catch {
       case ex: Throwable => {
-        println(s"Exception while raising event: $ex")
+        Logger.logExceptionProcessEvent(ex)
       }
     }
   }

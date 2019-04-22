@@ -8,8 +8,8 @@ case class StatusUpdateEvent(override val sequenceNumber: Int, fromId: Int) exte
       val from = userRepository.get(fromId)
       from.notifyFollowers(this, userRepository)
     } catch {
-      case ex: RuntimeException => {
-        println(s"notifyFollowers() has thrown: $ex")
+      case ex: Throwable => {
+        Logger.logExceptionNotifyFollowers(ex)
       }
     }
   }

@@ -8,7 +8,7 @@ import org.scalatest.FunSuite
 class EventQueueProcessorTests extends FunSuite {
   test("test event queue processor") {
     val byteStream = new ByteArrayOutputStream
-    val stream = PrintStreamCreator.fromStream(byteStream)
+    val stream = PrintWriterCreator.fromStream(byteStream)
 
     val userRepository = new UserRepository
     val eventQueue = new EventQueue

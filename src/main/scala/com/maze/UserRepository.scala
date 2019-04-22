@@ -10,7 +10,7 @@ class UserRepository {
   var users: ConcurrentHashMap[Int, User] = new ConcurrentHashMap[Int, User]()
 
   def add(id: Int, socket: Socket, dummy: Boolean): Unit = {
-    val stream = PrintStreamCreator.fromSocket(socket)
+    val stream = PrintWriterCreator.fromSocket(socket)
     add(id, stream, dummy)
   }
 
@@ -21,7 +21,7 @@ class UserRepository {
   }
 
   def addDummy(id: Int): User = {
-    val stream = PrintStreamCreator.dummy
+    val stream = PrintWriterCreator.nullWriter
     add(id, stream, true)
   }
 

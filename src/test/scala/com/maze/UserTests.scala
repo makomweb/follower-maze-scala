@@ -7,7 +7,7 @@ import org.scalatest.FunSuite
 class UserTests extends FunSuite{
   test("Writing event should succeed") {
     val byteStream = new ByteArrayOutputStream
-    val stream = PrintStreamCreator.fromStream(byteStream)
+    val stream = PrintWriterCreator.fromStream(byteStream)
     val user = new User(1, stream, false)
     user.consume(FollowEvent(44, 22, 11))
 

@@ -2,38 +2,39 @@ package com.maze
 
 object Logger {
   def logEventConsumed(user: User, event: Event): Unit = {
-    println(s"$user.id has consumed event: $event")
+    val id = user.id
+    println(s"User $id has consumed event: $event")
   }
 
   def logExceptionAcceptingUser(ex: Throwable): Unit = {
     println(s"Caught exception while accepting users: $ex")
   }
 
-  def logUserAccepted(line: String) = {
-    println(s"accepted user $line")
+  def logUserAccepted(line: String): Unit = {
+    println(s"Accepted user: $line")
   }
 
-  def logUserClientProcessorStarted() = {
+  def logUserClientProcessorStarted(): Unit = {
     println("Start accepting users.")
   }
 
   def logExceptionNotifyFollowers(ex: Throwable): Unit = {
-    println(s"notifyFollowers() has thrown: $ex")
+    println(s"Notifying followers has thrown: $ex")
   }
 
   def logExceptionIncomingEvent(ex: Throwable): Unit = {
     println(s"Caught exception while processing incoming events: $ex")
   }
 
-  def logIncomingEventProcessorStarted() = {
+  def logIncomingEventProcessorStarted(): Unit = {
     println("Start receiving events.")
   }
 
-  def logEventRaised(event: Event) = {
+  def logEventRaised(event: Event): Unit = {
     println(s"Event raised: $event")
   }
 
-  def logExceptionProcessEvent(ex: Throwable) = {
+  def logExceptionProcessEvent(ex: Throwable): Unit = {
     println(s"Exception while raising event: $ex")
   }
 

@@ -2,12 +2,12 @@ package com.maze
 
 object Logger {
   def logEventConsumed(user: User, event: Event): Unit = {
-    val id = user.id
-    println(s"User $id has consumed event: $event")
+    //val id = user.id
+    //println(s"User $id has consumed event: $event")
   }
 
   def logExceptionAcceptingUser(ex: Throwable): Unit = {
-    println(s"Caught exception while accepting users: $ex")
+    //println(s"Caught exception while accepting users: $ex")
   }
 
   def logUserAccepted(line: String): Unit = {
@@ -19,19 +19,15 @@ object Logger {
   }
 
   def logExceptionNotifyFollowers(ex: Throwable): Unit = {
-    println(s"Notifying followers has thrown: $ex")
+    //println(s"Notifying followers has thrown: $ex")
   }
 
   def logExceptionIncomingEvent(ex: Throwable): Unit = {
-    println(s"Caught exception while processing incoming events: $ex")
+    //println(s"Caught exception while processing incoming events: $ex")
   }
 
   def logIncomingEventProcessorStarted(): Unit = {
     println("Start receiving events.")
-  }
-
-  def logEventRaised(event: Event): Unit = {
-    println(s"Event raised: $event")
   }
 
   def logExceptionProcessEvent(ex: Throwable): Unit = {
@@ -47,10 +43,10 @@ object Logger {
   }
 
   def logExceptionAcceptingUsers(exception: Throwable): Unit = {
-    println(s"Caught exception while accepting user connections: $exception")
+    //println(s"Caught exception while accepting user connections: $exception")
   }
 
   def logExceptionAcceptingIncomingEvents(exception: Throwable): Unit = {
-    println(s"Caught exception while accepting incoming events: $exception")
+    //println(s"Caught exception while accepting incoming events: $exception")
   }
 }

@@ -26,7 +26,6 @@ class EventQueueProcessor(userRepository: UserRepository, eventQueue: EventQueue
           event = eventQueue.dequeue
           sequenceNumber = sequenceNumber + 1
           event.raiseEvent(userRepository)
-          Logger.logEventRaised(event)
         }
       }
     } catch {

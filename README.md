@@ -29,7 +29,6 @@ Finally you can run the application by typing:
 ```
 scala target/scala-2.12/follower-maze-scala_2.12-0.1.jar
 ```
-to run the application.
 
 The implementation was made on a Windows 10 notebook and I tested it on an EC2 AWS instance running Linux.
 

@@ -22,7 +22,7 @@ Run the Scala Build Tools (SBT) to execute individual tasks:
 |`build`| to create an executable JAR file |
 |`test`| to run the implemented unit tests |
 |`package`| to package everything into a JAR file |
-|`run`| to execute the application (*not suggested!*) |
+|`run`| to execute the application |
 
 Finally you can run the application by typing:
 
